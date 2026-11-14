@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Place = require("../models/place");
 
 const dbName = "coffee-books";
-mongoose.connect(`mongodb://localhost/${dbName}`, {
+mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/${dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
