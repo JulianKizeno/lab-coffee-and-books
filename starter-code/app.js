@@ -8,11 +8,11 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const sass         = require('node-sass-middleware');
+const sass         = require("./security/sass-middleware.js");
 
 
 mongoose
-  .connect('mongodb://localhost/coffee-books', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost/coffee-books', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -33,7 +33,7 @@ app.use(cookieParser());
 
 // Express View engine setup
 
-app.use(require('node-sass-middleware')({
+app.use(require("./security/sass-middleware.js")({
   src:  path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
